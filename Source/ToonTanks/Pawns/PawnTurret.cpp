@@ -34,8 +34,7 @@ void APawnTurret::FireIfPossible()
 {
     if(!PlayerPawn || GetPlayerDistance() > FireRange) return;
 
-    if(GetPlayerDistance() <= FireRange)
-        UE_LOG(LogTemp, Display, TEXT("In the Fire Range"));
+    Fire();
 }
 
 void APawnTurret::RotateTurretIfEnemyInRange()

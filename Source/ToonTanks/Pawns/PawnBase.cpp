@@ -31,3 +31,8 @@ void APawnBase::RotateTurret(const FVector Target)
 	const auto Rotation = (LookAtTarget - TurretLocation).Rotation();
 	TurretMesh->SetWorldRotation(Rotation, true);
 }
+
+void APawnBase::Fire()
+{
+	UE_LOG(LogTemp, Display, TEXT("%s Fired!"), *GetName());
+}
