@@ -46,9 +46,12 @@ private:
     FVector MoveDirection;
     FQuat RotationDirection;
 
+    APlayerController* PlayerControllerRef;
+
     void CalculateMoveInput(float Value);
     void CalculateRotateInput(float Value);
 
     void Move();
     void Rotate();
+    void LookTowardCursor();
 };

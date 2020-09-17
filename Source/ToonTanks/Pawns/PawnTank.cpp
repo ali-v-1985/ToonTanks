@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 APawnTank::APawnTank()
 {
@@ -20,6 +21,7 @@ APawnTank::APawnTank()
 void APawnTank::BeginPlay()
 {
     Super::BeginPlay();
+    PlayerControllerRef = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 }
 
 // Called every frame
@@ -29,6 +31,7 @@ void APawnTank::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
     Rotate();
     Move();
+    LookTowardCursor();
 }
 
 // Called to bind functionality to input
@@ -61,4 +64,14 @@ void APawnTank::Move()
 void APawnTank::Rotate()
 {
     AddActorLocalRotation(RotationDirection, true);
+}
+
+void APawnTank::LookTowardCursor()
+{
+    if(PlayerControllerRef)
+    {
+        FHitResult HitResult;
+        PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+        RotateTurret(HitResult.ImpactPoint);
+    }
 }
