@@ -27,17 +27,25 @@ void APawnTurret::BeginPlay()
 void APawnTurret::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+    RotateTurretIfEnemyInRange();   
 }
 
 void APawnTurret::FireIfPossible()
 {
-    if(!PlayerPawn) return;
+    if(!PlayerPawn || GetPlayerDistance() > FireRange) return;
 
     if(GetPlayerDistance() <= FireRange)
         UE_LOG(LogTemp, Display, TEXT("In the Fire Range"));
 }
 
-float APawnTurret::GetPlayerDistance()
+void APawnTurret::RotateTurretIfEnemyInRange()
+{
+    if(!PlayerPawn || GetPlayerDistance() > FireRange) return;
+
+    RotateTurret(PlayerPawn->GetActorLocation());
+}
+
+float APawnTurret::GetPlayerDistance() const
 {
     if(!PlayerPawn) return 0.0f;
 

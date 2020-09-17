@@ -17,6 +17,10 @@ public:
     // Sets default values for this pawn's properties
     APawnBase();
 
+protected:
+    virtual void RotateTurret(const FVector Target);
+
+
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta= (AllowPrivateAccess="true"))
     UCapsuleComponent* CapsuleComponent;
