@@ -4,35 +4,43 @@
 #include "PawnBase.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "ToonTanks/Actors/ProjectileBase.h"
 
 // Sets default values
 APawnBase::APawnBase()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+    // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
 
-	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule Collider"));
-	RootComponent = CapsuleComponent;
+    CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule Collider"));
+    RootComponent = CapsuleComponent;
 
-	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
-	BaseMesh->SetupAttachment(CapsuleComponent);
+    BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
+    BaseMesh->SetupAttachment(CapsuleComponent);
 
-	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Turret Mesh"));
-	TurretMesh->SetupAttachment(BaseMesh);
+    TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Turret Mesh"));
+    TurretMesh->SetupAttachment(BaseMesh);
 
-	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
-	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+    ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
+    ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
 void APawnBase::RotateTurret(const FVector Target)
 {
-	const auto TurretLocation = TurretMesh->GetComponentLocation();
-	const auto LookAtTarget = FVector(Target.X, Target.Y, TurretLocation.Z);
-	const auto Rotation = (LookAtTarget - TurretLocation).Rotation();
-	TurretMesh->SetWorldRotation(Rotation, true);
+    const auto TurretLocation = TurretMesh->GetComponentLocation();
+    const auto LookAtTarget = FVector(Target.X, Target.Y, TurretLocation.Z);
+    const auto Rotation = (LookAtTarget - TurretLocation).Rotation();
+    TurretMesh->SetWorldRotation(Rotation, true);
 }
 
 void APawnBase::Fire()
 {
-	UE_LOG(LogTemp, Display, TEXT("%s Fired!"), *GetName());
+    if (ProjectileClass)
+    {
+        const auto SpawnLocation = ProjectileSpawnPoint->GetComponentLocation();
+        const auto SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
+        auto ProjectileObj = GetWorld()->SpawnActor<AProjectileBase>(ProjectileClass,
+                                                                      SpawnLocation, SpawnRotation);
+        ProjectileObj->SetOwner(this);
+    }
 }
