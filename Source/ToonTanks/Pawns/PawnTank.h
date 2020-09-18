@@ -25,6 +25,8 @@ public:
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 protected:
+    virtual void Fire() override;
+    
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
@@ -43,6 +45,11 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess="true"))
     float RotateSpeed = 100.0f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Combat", meta = (AllowPrivateAccess="true"))
+    float LoadTime = 1;
+    
+    float LastFireTime;
+
     FVector MoveDirection;
     FQuat RotationDirection;
 
@@ -54,4 +61,5 @@ private:
     void Move();
     void Rotate();
     void LookTowardCursor();
+    bool IsLoaded();
 };

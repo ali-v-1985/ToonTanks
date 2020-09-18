@@ -44,6 +44,15 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
     PlayerInputComponent->BindAction("Fire", IE_Pressed,this, &APawnTank::Fire);
 }
 
+void APawnTank::Fire()
+{
+    if (IsLoaded())
+    {
+        Super::Fire();
+        LastFireTime = UGameplayStatics::GetTimeSeconds(GetWorld());
+    }
+}
+
 void APawnTank::CalculateMoveInput(float Value)
 {
     MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
@@ -74,4 +83,10 @@ void APawnTank::LookTowardCursor()
         PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
         RotateTurret(HitResult.ImpactPoint);
     }
+}
+
+bool APawnTank::IsLoaded()
+{
+    const auto CurrentTime = UGameplayStatics::GetTimeSeconds(GetWorld());
+    return CurrentTime - LastFireTime >= LoadTime;
 }
