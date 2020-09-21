@@ -37,7 +37,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent,
 {
     const auto OwnerActor = GetOwner();
     if (!OwnerActor) return;
-    if (OtherActor && OtherActor != this && OtherActor != OwnerActor && OtherComp)
+    if (OtherActor && OtherActor != this && OtherActor != OwnerActor)
     {
         const auto PlayerController = OwnerActor->GetInstigatorController();
         auto AppliedDamage = UGameplayStatics::ApplyDamage(OtherActor, Damage, PlayerController,
