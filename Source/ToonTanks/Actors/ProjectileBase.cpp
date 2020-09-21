@@ -4,20 +4,20 @@
 #include "ProjectileBase.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AProjectileBase::AProjectileBase()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = false;
 
-	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
-	RootComponent = ProjectileMesh;
+    ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
+    RootComponent = ProjectileMesh;
 
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
-	ProjectileMovement->InitialSpeed = MovementSpeed;
-	ProjectileMovement->MaxSpeed = MovementSpeed;
-	InitialLifeSpan = LifeTime;
-	
+    ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
+    ProjectileMovement->InitialSpeed = MovementSpeed;
+    ProjectileMovement->MaxSpeed = MovementSpeed;
+    InitialLifeSpan = LifeTime;
 }
 
 // Sets default values
@@ -25,7 +25,24 @@ AProjectileBase::AProjectileBase()
 // Called when the game starts or when spawned
 void AProjectileBase::BeginPlay()
 {
-	Super::BeginPlay();
-	
+    Super::BeginPlay();
+
+    ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
 }
 
+void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent,
+                            AActor* OtherActor, UPrimitiveComponent* OtherComp,
+                            FVector NormalImpulse,
+                            const FHitResult& Hit)
+{
+    const auto OwnerActor = GetOwner();
+    if (!OwnerActor) return;
+    if (OtherActor && OtherActor != this && OtherActor != OwnerActor && OtherComp)
+    {
+        const auto PlayerController = OwnerActor->GetInstigatorController();
+        auto AppliedDamage = UGameplayStatics::ApplyDamage(OtherActor, Damage, PlayerController,
+                                                           this, DamageType);
+    }
+
+    Destroy();
+}
