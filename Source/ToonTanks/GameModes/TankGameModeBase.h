@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+
 #include "TankGameModeBase.generated.h"
 
 class APawnTank;
-
+class APlayerControllerBase;
 /**
  * 
  */
@@ -36,6 +37,8 @@ private:
     APawnTank* PlayerTank;
 
     int32 TurretCount;
+
+    APlayerControllerBase* PlayerControllerRef;
     
     void HandleGameStart();
     void HandleGameOver(bool PlayerWon);
