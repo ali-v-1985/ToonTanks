@@ -45,6 +45,6 @@ void APawnBase::Fire()
     }
 }
 
-`void APawnBase::HandleDestruction()
+void APawnBase::HandleDestruction()
 {
 }
