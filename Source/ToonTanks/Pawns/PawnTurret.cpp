@@ -40,7 +40,10 @@ void APawnTurret::FireIfPossible()
 {
     if(!PlayerPawn || GetPlayerDistance() > FireRange) return;
 
-    Fire();
+    if (PlayerPawn->GetIsPlayerAlive())
+    {
+        Fire();
+    }
 }
 
 void APawnTurret::RotateTurretIfEnemyInRange()

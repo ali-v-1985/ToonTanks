@@ -26,6 +26,8 @@ public:
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     virtual void HandleDestruction() override;
+
+    bool GetIsPlayerAlive() const;
 protected:
     virtual void Fire() override;
     
@@ -55,6 +57,8 @@ private:
     FQuat RotationDirection;
 
     APlayerController* PlayerControllerRef;
+
+    bool bIsPlayerAlive;
 
     void CalculateMoveInput(float Value);
     void CalculateRotateInput(float Value);
