@@ -22,6 +22,8 @@ void APawnTank::BeginPlay()
 {
     Super::BeginPlay();
     PlayerControllerRef = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+    
+    bIsPlayerAlive = true;
 }
 
 // Called every frame
