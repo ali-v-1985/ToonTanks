@@ -53,6 +53,12 @@ void APawnTank::Fire()
     }
 }
 
+void APawnTank::HandleDestruction()
+{
+    Super::HandleDestruction();
+
+}
+
 void APawnTank::CalculateMoveInput(float Value)
 {
     MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
@@ -85,7 +91,7 @@ void APawnTank::LookTowardCursor()
     }
 }
 
-bool APawnTank::IsLoaded()
+bool APawnTank::IsLoaded() const
 {
     const auto CurrentTime = UGameplayStatics::GetTimeSeconds(GetWorld());
     return CurrentTime - LastFireTime >= LoadTime;

@@ -30,6 +30,12 @@ void APawnTurret::Tick(float DeltaTime)
     RotateTurretIfEnemyInRange();   
 }
 
+void APawnTurret::HandleDestruction()
+{
+    Super::HandleDestruction();
+    Destroy();
+}
+
 void APawnTurret::FireIfPossible()
 {
     if(!PlayerPawn || GetPlayerDistance() > FireRange) return;

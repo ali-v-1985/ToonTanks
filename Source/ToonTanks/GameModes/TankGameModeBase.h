@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "TankGameModeBase.generated.h"
 
+class APawnTank;
+
 /**
  * 
  */
@@ -26,6 +28,13 @@ protected:
     void GameOver(bool PlayerWon);
 
 private:
+
+    APawnTank* PlayerTank;
+
+    int32 TurretCount;
+    
     void HandleGameStart();
     void HandleGameOver(bool PlayerWon);
+
+    void LoadTurretActorsCount();
 };

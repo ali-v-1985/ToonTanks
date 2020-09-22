@@ -24,12 +24,13 @@ public:
 
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+    virtual void HandleDestruction() override;
 protected:
     virtual void Fire() override;
     
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
-
 
 private:
 
@@ -61,5 +62,5 @@ private:
     void Move();
     void Rotate();
     void LookTowardCursor();
-    bool IsLoaded();
+    bool IsLoaded() const;
 };

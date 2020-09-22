@@ -44,3 +44,7 @@ void APawnBase::Fire()
         ProjectileObj->SetOwner(this);
     }
 }
+
+`void APawnBase::HandleDestruction()
+{
+}
