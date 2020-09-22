@@ -8,6 +8,7 @@
 #include "ProjectileBase.generated.h"
 
 class UProjectileMovementComponent;
+class UParticleSystemComponent;
 
 UCLASS()
 class TOONTANKS_API AProjectileBase : public AActor
@@ -50,4 +51,7 @@ private:
 
     UPROPERTY(EditAnywhere, Category="Damage|Effects", meta= (AllowPrivateAccess="true"))
     UParticleSystem* HitParticle;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Movement|Effects", meta=(AllowPrivateAccess = "true"))
+    UParticleSystemComponent* TrailParticle;
 };
