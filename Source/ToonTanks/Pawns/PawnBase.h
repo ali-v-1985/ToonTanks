@@ -48,4 +48,7 @@ private:
 
     UPROPERTY(EditAnywhere, Category="Combat|Effects", meta= (AllowPrivateAccess="true"))
     UParticleSystem* DeathParticle;
+
+    UPROPERTY(EditAnywhere, Category="Combat|Effects", meta= (AllowPrivateAccess="true"))
+    USoundBase* DeathSound;
 };

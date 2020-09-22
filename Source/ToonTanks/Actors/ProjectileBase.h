@@ -54,4 +54,10 @@ private:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Movement|Effects", meta=(AllowPrivateAccess = "true"))
     UParticleSystemComponent* TrailParticle;
+
+    UPROPERTY(EditAnywhere, Category="Damage|Effects", meta= (AllowPrivateAccess="true"))
+    USoundBase* HitSound;
+    
+    UPROPERTY(EditAnywhere, Category="Movement|Effects", meta= (AllowPrivateAccess="true"))
+    USoundBase* LaunchSound;
 };
