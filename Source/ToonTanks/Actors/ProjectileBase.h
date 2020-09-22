@@ -42,9 +42,12 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement", meta=(AllowPrivateAccess = "true"))
     float LifeTime = 3;
 
-    UFUNCTION(BlueprintCallable, meta=(BlueprintProtected = "true"), Category="Game")
+    UFUNCTION(BlueprintCallable, Category="Game", meta=(BlueprintProtected = "true"))
     void OnHit(UPrimitiveComponent* HitComponent,
                AActor* OtherActor, UPrimitiveComponent* OtherComp,
                FVector NormalImpulse,
                const FHitResult& Hit);
+
+    UPROPERTY(EditAnywhere, Category="Damage|Effects", meta= (AllowPrivateAccess="true"))
+    UParticleSystem* HitParticle;
 };

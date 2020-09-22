@@ -40,9 +40,10 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent,
     if (OtherActor && OtherActor != this && OtherActor != OwnerActor)
     {
         const auto PlayerController = OwnerActor->GetInstigatorController();
-        auto AppliedDamage = UGameplayStatics::ApplyDamage(OtherActor, Damage, PlayerController,
+        UGameplayStatics::ApplyDamage(OtherActor, Damage, PlayerController,
                                                            this, DamageType);
-    }
 
-    Destroy();
+        UGameplayStatics::SpawnEmitterAtLocation(this, HitParticle, GetActorLocation());
+        Destroy();
+    }
 }

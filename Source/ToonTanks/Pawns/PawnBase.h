@@ -45,4 +45,7 @@ private:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta= (AllowPrivateAccess="true"))
     UHealthComponent* HealthComponent;
+
+    UPROPERTY(EditAnywhere, Category="Combat|Effects", meta= (AllowPrivateAccess="true"))
+    UParticleSystem* DeathParticle;
 };
