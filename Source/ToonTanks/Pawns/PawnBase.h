@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+
 #include "PawnBase.generated.h"
 
 class UCapsuleComponent;
 class AProjectileBase;
+class UHealthComponent;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
@@ -40,4 +42,7 @@ private:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Combat", meta= (AllowPrivateAccess="true"))
     TSubclassOf<AProjectileBase> ProjectileClass;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta= (AllowPrivateAccess="true"))
+    UHealthComponent* HealthComponent;
 };
