@@ -10,6 +10,7 @@
 class UCapsuleComponent;
 class AProjectileBase;
 class UHealthComponent;
+class UCameraShake;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
@@ -51,4 +52,7 @@ private:
 
     UPROPERTY(EditAnywhere, Category="Combat|Effects", meta= (AllowPrivateAccess="true"))
     USoundBase* DeathSound;
+
+    UPROPERTY(EditAnywhere, Category="Combat|Effects", meta= (AllowPrivateAccess="true"))
+    TSubclassOf<UCameraShake> DeathCamShake;
 };

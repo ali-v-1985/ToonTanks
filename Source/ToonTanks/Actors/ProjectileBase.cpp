@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Engine/World.h"
 
 AProjectileBase::AProjectileBase()
 {
@@ -52,6 +53,9 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent,
         UGameplayStatics::SpawnEmitterAtLocation(this, HitParticle, GetActorLocation());
 
         UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+
+        GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(HitCamShake);
+
         Destroy();
     }
 }

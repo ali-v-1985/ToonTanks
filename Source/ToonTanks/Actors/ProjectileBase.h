@@ -9,6 +9,7 @@
 
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
+class UCameraShake;
 
 UCLASS()
 class TOONTANKS_API AProjectileBase : public AActor
@@ -60,4 +61,7 @@ private:
     
     UPROPERTY(EditAnywhere, Category="Movement|Effects", meta= (AllowPrivateAccess="true"))
     USoundBase* LaunchSound;
+
+    UPROPERTY(EditAnywhere, Category="Damage|Effects", meta= (AllowPrivateAccess="true"))
+    TSubclassOf<UCameraShake> HitCamShake;
 };

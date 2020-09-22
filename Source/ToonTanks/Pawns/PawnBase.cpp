@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "ToonTanks/Actors/ProjectileBase.h"
 #include "ToonTanks/Components/HealthComponent.h"
 
@@ -53,4 +54,6 @@ void APawnBase::HandleDestruction()
 {
     UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation());
     UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+    GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(DeathCamShake);
+        
 }
